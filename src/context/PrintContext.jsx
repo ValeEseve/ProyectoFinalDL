@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 
 export const PrintContext = createContext({})
 
-const PrintProvider = ({children}) => {
+const PrintsProvider = ({children}) => {
     const [prints, setPrints] = useState([])
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -24,4 +24,4 @@ const PrintProvider = ({children}) => {
     )
 }
 
-export default PrintProvider
+export default PrintsProvider
