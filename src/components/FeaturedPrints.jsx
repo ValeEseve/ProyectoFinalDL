@@ -9,13 +9,15 @@ const FeaturedPrints = () => {
 
     useEffect(() => {
         setFeatPrints(getFeatured(prints));
-        console.log(prints)
+        console.log("Prints en featured"+featPrints)
     }, [prints]);
 
 
     return (
-        <section className='container-fluid'>
-            <h2>Featured prints</h2>
+        <div>
+            <br />
+            <h2 className='text-center'>Featured Prints</h2>
+        <section className='container-fluid d-flex justify-content-center gap-3'>
             {featPrints.map(print => (
                 <CardPrint key={print.id} print={print} />
             ))}
@@ -24,6 +26,7 @@ const FeaturedPrints = () => {
 
 
         </section>
+        </div>
     )
 }
 
