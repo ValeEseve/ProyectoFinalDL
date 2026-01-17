@@ -1,5 +1,6 @@
 import React from 'react'
 import placeholderimage from "../assets/img/dummy_1500x400_ffffff_cccccc.png"
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -12,24 +13,24 @@ const Header = () => {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src={placeholderimage} className="d-block w-100 h-50" alt="First slide image"/>
+            <Link to={"/prints"}><img src={placeholderimage} className="d-block w-100 h-50" alt="First slide image"/></Link>
               <div className="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
-                <p>Some representative placeholder content for the first slide.</p>
+                <h2>Your art collection starts here</h2>
+                <p>Buy and sell art prints to other fellow artists</p>
               </div>
           </div>
           <div className="carousel-item">
-            <img src={placeholderimage} className="d-block w-100 h-50" alt="Second slide image"/>
+            <Link to={"/artists"}><img src={placeholderimage} className="d-block w-100 h-50" alt="Second slide image"/></Link>
               <div className="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Some representative placeholder content for the second slide.</p>
+                <h2>Take a look of our beloved artists</h2>
+                <p>We have amazing art waiting to be hanged in your wall</p>
               </div>
           </div>
           <div className="carousel-item">
-            <img src={placeholderimage} className="d-block w-100 h-50" alt="Third slide image"/>
+            <Link to={"/register"}><img src={placeholderimage} className="d-block w-100 h-50" alt="Third slide image"/></Link>
               <div className="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>Some representative placeholder content for the third slide.</p>
+                <h2>Start selling here!</h2>
+                <Link to={"/register"}><button className='btn btn-primary'>Register your artist account</button></Link>
               </div>
           </div>
         </div>
@@ -42,8 +43,6 @@ const Header = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-      -----------------------------------------------------------------------
-      
     </div>
   )
 }
