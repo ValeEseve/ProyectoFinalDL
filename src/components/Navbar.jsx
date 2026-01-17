@@ -26,7 +26,7 @@ const Navbar = () => {
                             <Link to={"/register"}><button className='btn btn-primary'>Register</button></Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/cart"}><button className='btn btn-secondary'><i class="fa-solid fa-cart-shopping"></i></button></Link>
+                            <Link to={"/cart"}><button className='btn btn-secondary'><i className="fa-solid fa-cart-shopping"></i></button></Link>
                         </li>
                     </ul>
                     {/* <form className="d-flex" role="search">

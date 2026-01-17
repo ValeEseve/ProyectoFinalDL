@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import { getFeatured } from "../utils/featured"
 
 const FeaturedArtists = () => {
+    
 
   return (
     <div>
