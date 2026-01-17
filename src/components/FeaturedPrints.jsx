@@ -1,10 +1,19 @@
-import React from 'react'
+import { useContext } from 'react'
+import { PrintContext } from '../context/PrintContext'
 
 const FeaturedPrints = () => {
+    const {prints} = useContext(PrintContext)
+
+    
   return (
-    <div>
+    <section>
       Featured prints
-    </div>
+      <div className='container-fluid'>
+        <article>
+
+        </article>
+      </div>
+    </section>
   )
 }
 

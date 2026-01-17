@@ -1,8 +1,8 @@
 import React from 'react'
 
-const CardPrint = () => {
+const CardPrint = (props) => {
     return (
-        <div>
+        <article>
             <div class="card" style="width: 18rem;">
                 <img src="..." class="card-img-top" alt="..."/>
                     <div class="card-body">
@@ -11,7 +11,7 @@ const CardPrint = () => {
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
             </div>
-        </div>
+        </article>
     )
 }
 
