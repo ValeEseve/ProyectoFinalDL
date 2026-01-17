@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CartItem = () => {
+const FeaturedPrints = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const CartItem = () => {
   )
 }
 
-export default CartItem
+export default FeaturedPrints
