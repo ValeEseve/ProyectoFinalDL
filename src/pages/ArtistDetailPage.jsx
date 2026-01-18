@@ -15,7 +15,7 @@ const ArtistDetail = () => {
   const artistPrints = prints.filter((p) => p.userId === id)
 
   if (!users.length || !prints.length) {
-    return <p>Cargando artista...</p>;
+    return <p>Loading artist...</p>;
   }
 
   console.log("Descripcion artista: ",artist.descr)

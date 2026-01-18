@@ -16,16 +16,16 @@ const Footer = () => {
             </p>
             <div className="social-icons mt-3">
               <a href="#" className="text-white me-3" aria-label="Facebook">
-                <i class="fa-brands fa-facebook"></i>
+                <i className="fa-brands fa-facebook"></i>
               </a>
               <a href="#" className="text-white me-3" aria-label="Instagram">
-                <i class="fa-brands fa-square-instagram"></i>
+                <i className="fa-brands fa-square-instagram"></i>
               </a>
               <a href="#" className="text-white me-3" aria-label="X">
-                <i class="fa-brands fa-square-x-twitter"></i>
+                <i className="fa-brands fa-square-x-twitter"></i>
               </a>
               <a href="#" className="text-white" aria-label="Pinterest">
-                <i class="fa-brands fa-square-pinterest"></i>
+                <i className="fa-brands fa-square-pinterest"></i>
               </a>
             </div>
           </div>

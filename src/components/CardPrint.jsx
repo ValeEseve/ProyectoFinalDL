@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import './CardPrint.css'
 
@@ -9,8 +10,9 @@ const CardPrint = ({ print, user }) => {
     };
     return (
         <article>
+            
             <div className="card" style={{ width: "18rem" }}>
-                <img src={print.img} className="card-img-top p-2 card-img-fixed" alt="..." />
+                <Link to={`/prints/${print.id}`}><img src={print.img} className="card-img-top p-2 card-img-fixed" alt="..." /></Link>
                 <div className="card-body">
                     <h5 className="card-title">{print.name}</h5>
                     <h6>Art by {user?.name}</h6>
@@ -25,6 +27,7 @@ const CardPrint = ({ print, user }) => {
                     </div>
                 </div>
             </div>
+            
         </article>
     )
 }
