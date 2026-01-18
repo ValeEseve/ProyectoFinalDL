@@ -6,6 +6,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BrowserRouter } from 'react-router-dom'
 import PrintsProvider from './context/PrintContext.jsx';
 import UsersProvider from './context/UserContext.jsx';
+import { CartProvider } from './context/CartContext.jsx';
 
 
 
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <UsersProvider>
         <PrintsProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </PrintsProvider>
       </UsersProvider>
     </BrowserRouter>

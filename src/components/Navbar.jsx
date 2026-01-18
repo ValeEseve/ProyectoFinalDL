@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
+    const { getTotalItems } = useCart();
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
@@ -26,7 +29,10 @@ const Navbar = () => {
                             <Link to={"/register"}><button className='btn btn-primary'>Register</button></Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/cart"}><button className='btn btn-secondary'><i className="fa-solid fa-cart-shopping"></i></button></Link>
+                            <Link to={"/cart"}><button className='btn btn-secondary'><i className="fa-solid fa-cart-shopping"></i> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+                                ({getTotalItems()})
+                                <span class="visually-hidden">unread messages</span>
+                            </span> </button></Link>
                         </li>
                     </ul>
                     {/* <form className="d-flex" role="search">
