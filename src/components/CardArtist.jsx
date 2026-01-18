@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom"
+
 const CardArtist = (props) => {
-    console.log("props: ", props)
     return (
         <article>
             <div className="card border-0" style={{width: "10rem"}}>
-                <img src={props.artist.img} className="card-img-top rounded-circle" alt="..."/>
+                <img src={props.artist.img} className="card-img-top rounded-circle" alt={props.artist.name}/>
                     <div className="card-body">
                         <h5 className="card-title text-center">{props.artist.name}</h5>
-                        <a href="#" className="btn btn-primary">View artist's prints</a>
+                        <Link to={`/artist/${props.artist.id}`}><button className="btn btn-primary">View artist's prints</button></Link>
                     </div>
             </div>
         </article>

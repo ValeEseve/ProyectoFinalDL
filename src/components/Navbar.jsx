@@ -29,9 +29,8 @@ const Navbar = () => {
                             <Link to={"/register"}><button className='btn btn-primary'>Register</button></Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/cart"}><button className='btn btn-secondary'><i className="fa-solid fa-cart-shopping"></i> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                            <Link to={"/cart"}><button className='btn btn-warning'><i className="fa-solid fa-cart-shopping"></i> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
                                 {getTotalItems()}
-                                <span className="visually-hidden">unread messages</span>
                             </span> </button></Link>
                         </li>
                     </ul>
