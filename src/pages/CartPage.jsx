@@ -27,7 +27,6 @@ const CartPage = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="mb-4">Shopping Cart</h1>
       
       <div className="row">
         <div className="col-lg-8">

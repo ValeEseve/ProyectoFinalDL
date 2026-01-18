@@ -5,12 +5,11 @@ import FeaturedArtists from '../components/FeaturedArtists'
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>HOME PAGE</h1>
+    <main>
       <Header/>
       <FeaturedPrints/>
       <FeaturedArtists/>
-    </div>
+    </main>
   )
 }
 

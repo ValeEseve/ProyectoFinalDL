@@ -7,8 +7,8 @@ import RegisterPage from './pages/RegisterPage'
 import CartPage from './pages/CartPage'
 import { Routes, Route } from 'react-router-dom'
 import NotFoundPage from './pages/NotFoundPage'
-import PrintDetail from './pages/PrintDetail'
-import ArtistDetail from './pages/ArtistDetail'
+import PrintDetailPage from './pages/PrintDetailPage'
+import ArtistDetailPage from './pages/ArtistDetailPage'
 
 function App() {
 
@@ -18,9 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/prints" element={<PrintsPage />} />
-         <Route path="/print/:id" element={<PrintDetail />} />
+         <Route path="/print/:id" element={<PrintDetailPage />} />
         <Route path="/artists" element={<ArtistsPage />} />
-        <Route path="/artist/:id" element={<ArtistDetail />} /> 
+        <Route path="/artist/:id" element={<ArtistDetailPage />} /> 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/cart" element={<CartPage />} />
