@@ -7,7 +7,6 @@ const ArtistsPage = () => {
 
   return (
     <main>
-      <h1>ARTISTS PAGE</h1>
       <section className='d-flex justify-content-center flex-wrap gap-5'>
       {users.map((artist)=>(
         <CardArtist key={artist.id} artist={artist} />
