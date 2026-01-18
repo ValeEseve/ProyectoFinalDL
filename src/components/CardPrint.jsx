@@ -14,13 +14,14 @@ const CardPrint = ({ print, user }) => {
                 <div className="card-body">
                     <h5 className="card-title">{print.name}</h5>
                     <h6>Art by {user?.name}</h6>
-                    <div className='d-flex justify-content-end'>
-                    <button
-                        onClick={handleAddToCart}
-                        className={`btn  ${isInCart(print.id) ? 'btn-success' : 'btn-primary'}`}
-                    >
-                        <i className={` ${isInCart(print.id) ? 'fa-regular fa-square-check' : 'fa-solid fa-cart-arrow-down'}`}></i>
-                    </button>
+                    <div className='d-flex justify-content-between align-items-center'>
+                        <p>${print.price}</p>
+                        <button
+                            onClick={handleAddToCart}
+                            className={`btn ${isInCart(print.id) ? 'btn-info' : 'btn-success'}`}
+                        >
+                            {isInCart(print.id) ? '✓' : 'Add to cart'}
+                        </button>
                     </div>
                 </div>
             </div>

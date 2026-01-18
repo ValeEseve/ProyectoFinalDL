@@ -32,9 +32,10 @@ const ArtistDetail = () => {
         </section>
         <section className='user-prints'>
           <p>{artist.descr}</p>
-          <div className='d-flex flex-wrap gap-1'>
+          <h4 className='text-center mb-3'>Prints by the artist</h4>
+          <div className='d-flex flex-wrap gap-1 justify-content-center'>
             {artistPrints.map((print) => (
-              <CardPrint key={print.id} print={print} />
+              <CardPrint key={print.id} print={print}  user={artist}/>
             ))}
           </div>
         </section>

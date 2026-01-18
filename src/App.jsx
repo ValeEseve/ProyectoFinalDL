@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom'
 import NotFoundPage from './pages/NotFoundPage'
 import PrintDetailPage from './pages/PrintDetailPage'
 import ArtistDetailPage from './pages/ArtistDetailPage'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer/>
     </>
   )
 }

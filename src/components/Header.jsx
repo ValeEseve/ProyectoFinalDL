@@ -1,6 +1,9 @@
-import React from 'react'
 import placeholderimage from "../assets/img/dummy_1500x400_ffffff_cccccc.png"
+import hero1 from "../assets/img/hero1.jpg"
+import hero2 from "../assets/img/hero2.jpeg"
+import hero3 from "../assets/img/hero3.jpeg"
 import { Link } from 'react-router-dom'
+import "./Header.css"
 
 const Header = () => {
   return (
@@ -13,21 +16,21 @@ const Header = () => {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <Link to={"/prints"}><img src={placeholderimage} className="d-block w-100 h-50" alt="First slide image"/></Link>
+            <Link to={"/prints"}><img src={hero2} className="d-block w-100 h-50 hero-image" alt="First slide image"/></Link>
               <div className="carousel-caption d-none d-md-block">
-                <h2>Your art collection starts here</h2>
-                <p>Buy and sell art prints to other fellow artists</p>
+                <h1>Your art collection starts here</h1>
+                <h4>Buy and sell art prints to other fellow artists</h4>
               </div>
           </div>
           <div className="carousel-item">
-            <Link to={"/artists"}><img src={placeholderimage} className="d-block w-100 h-50" alt="Second slide image"/></Link>
+            <Link to={"/artists"}><img src={hero1} className="d-block w-100 h-50 hero-image" alt="Second slide image"/></Link>
               <div className="carousel-caption d-none d-md-block">
                 <h2>Take a look of our beloved artists</h2>
-                <p>We have amazing art waiting to be hanged in your wall</p>
+                <h4>We have amazing art waiting to be hanged in your wall</h4>
               </div>
           </div>
           <div className="carousel-item">
-            <Link to={"/register"}><img src={placeholderimage} className="d-block w-100 h-50" alt="Third slide image"/></Link>
+            <Link to={"/register"}><img src={hero3} className="d-block w-100 h-50 hero-image" alt="Third slide image"/></Link>
               <div className="carousel-caption d-none d-md-block">
                 <h2>Start selling here!</h2>
                 <Link to={"/register"}><button className='btn btn-primary'>Register your artist account</button></Link>
