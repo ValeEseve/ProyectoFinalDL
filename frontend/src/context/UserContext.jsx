@@ -19,7 +19,7 @@ const UsersProvider = ({ children }) => {
     const navigate = useNavigate()
 
     const login = async (email, password) => {
-        const url = "http://localhost:5000/api/auth/login"
+        const url = "http://localhost:3000/api/auth/login"
         const response = await fetch(url, {
             method: "POST", headers: {
                 "Content-Type": "application/json",
