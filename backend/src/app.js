@@ -1,19 +1,21 @@
-import express from 'express';
-import cors from 'cors';
+import express from 'express'
+import cors from 'cors'
 
-import authRoutes from './routes/auth.routes.js';
-import usersRoutes from './routes/users.routes.js';
+import authRoutes from './routes/auth.routes.js'
+import usersRoutes from './routes/users.routes.js'
+import printsRoutes from './routes/prints.routes.js'
 
-const app = express();
+const app = express()
 
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
 
-app.use('/auth', authRoutes);
-app.use('/users', usersRoutes);
+app.use('/auth', authRoutes)
+app.use('/users', usersRoutes)
+app.use('/prints', printsRoutes)
 
 app.get('/', (req, res) => {
-  res.json({ message: 'API PRINTSxPRINTS OK' });
-});
+  res.json({ message: 'API PRINTSxPRINTS OK' })
+})
 
-export default app;
+export default app
