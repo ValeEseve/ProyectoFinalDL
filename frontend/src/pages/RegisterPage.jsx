@@ -4,6 +4,7 @@ import { UserContext } from '../context/UserContext'
 const RegisterPage = () => {
       const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [name, setName] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const {register} = useContext(UserContext)
 
@@ -26,7 +27,7 @@ const RegisterPage = () => {
 
     const validatePasswordsMatch = (password, confirmPassword) => {
         if (password !== confirmPassword){
-            alert("Las contraseñas no coinciden")
+            alert("Passwords don't match.")
             return false
         } else {
             return true
@@ -40,23 +41,28 @@ const RegisterPage = () => {
       if (!passwordIsValid) {return}
       const passwordsMatch = validatePasswordsMatch(password, confirmPassword)
       if (!passwordsMatch) {return}
-      register(email, password)
-      alert("Bienvenid@, tu cuenta ha sido creada!")
-  
+      register(email, password, name)
+      setEmail("")
+      setPassword("")
+      setName("")
     }
     return (
       <section className="d-flex flex-column align-items-center justify-content-center vh-100 gap-4">
         <form action="submit" className="d-flex flex-column gap-3 w-25" onSubmit={handleSubmit}>
           <h1>Register new account</h1>
           <div className="d-flex flex-column gap-2">
+            <label htmlFor="name">Name</label>
+            <input type="name" id="name" name="name" onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div className="d-flex flex-column gap-2">
             <label htmlFor="email">Email</label>
             <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} />
           </div>
-          <div>
+          <div className="d-flex flex-column gap-2">
             <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <div>
+          <div className="d-flex flex-column gap-2">
             <label htmlFor="confirm-password">Confirm Password</label>
             <input type="password" id="confirm-password" name="confirm-password" onChange={(e) => setConfirmPassword(e.target.value)} />
           </div>

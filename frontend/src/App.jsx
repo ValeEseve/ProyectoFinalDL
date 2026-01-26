@@ -10,6 +10,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import PrintDetailPage from './pages/PrintDetailPage'
 import ArtistDetailPage from './pages/ArtistDetailPage'
 import Footer from './components/Footer'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer/>
