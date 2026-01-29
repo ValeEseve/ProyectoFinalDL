@@ -1,4 +1,4 @@
-import { pool } from '../database/connection.js';
+import { pool } from '../db/connection.js';
 
 export const getPrints = async (req, res) => {
   try {

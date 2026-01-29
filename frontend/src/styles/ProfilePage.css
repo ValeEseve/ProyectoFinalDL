@@ -19,11 +19,14 @@
 
 .profile-nav {
     flex: 1;
-    border: black 3px solid;
+    display: flex;
+    gap: 20px;
+}
 
+.profile-nav a {
+    text-decoration: none;
 }
 
 .profile-content {
     flex: 5;
-    border: black 3px solid;
 }

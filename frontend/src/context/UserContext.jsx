@@ -110,7 +110,7 @@ const UsersProvider = ({ children }) => {
     };
 
     const logout = () => {
-        setToken(false);
+        setToken(null);
         setEmail("");
         localStorage.removeItem("token")
         localStorage.removeItem("email");

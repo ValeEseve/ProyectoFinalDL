@@ -10,12 +10,12 @@ export const getUserByEmail = async (email) => {
   return rows[0];
 };
 
-export const createUser = async (email, password) => {
+export const createUser = async (email, password, name) => {
   const query = `
-    INSERT INTO users (email, password)
-    VALUES ($1, $2)
+    INSERT INTO users (email, password, name)
+    VALUES ($1, $2, $3)
     RETURNING id, email
   `;
-  const { rows } = await pool.query(query, [email, password]);
+  const { rows } = await pool.query(query, [email, password, name]);
   return rows[0];
 };
