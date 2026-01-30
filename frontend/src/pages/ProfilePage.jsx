@@ -10,7 +10,7 @@ const ProfilePage = () => {
     <main className="profile-page">
       <header className="profile-header d-flex g-5 align-items-center w-100 pt-5 ps-5">
         <div className="avatar">
-          <img src={profileImgUrl} alt={`${name} profile photo`} />
+          <img src={profileImgUrl | null} alt={`${name} profile photo`} />
         </div>
         <h4 className='ms-4'>Hi, {name}!</h4>
       </header>

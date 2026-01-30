@@ -16,15 +16,15 @@ export const getPrints = async (req, res) => {
 };
 
 export const createPrint = async (req, res) => {
-  const { title, description, image_url, price } = req.body;
+  const { title, descr, width, height, imgUrl, price } = req.body;
   const userId = req.user.id; 
 
   try {
     const { rows } = await pool.query(
-      `INSERT INTO prints (title, description, image_url, price, user_id)
-       VALUES ($1, $2, $3, $4, $5)
+      `INSERT INTO prints (title, description, width, height, image_url, price, user_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING *`,
-      [title, description, image_url, price, userId]
+      [title, descr, width, height, imgUrl, price, userId ]
     );
 
     res.status(201).json(rows[0]);

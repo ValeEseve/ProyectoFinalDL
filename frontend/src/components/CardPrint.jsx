@@ -12,7 +12,7 @@ const CardPrint = ({ print, user }) => {
         <article>
             
             <div className="card" style={{ width: "18rem" }}>
-                <Link to={`/prints/${print.id}`}><img src={print.img} className="card-img-top p-2 card-img-fixed" alt="..." /></Link>
+                <Link to={`/prints/${print.id}`}><img src={print.img | null} className="card-img-top p-2 card-img-fixed" alt="..." /></Link>
                 <div className="card-body">
                     <h5 className="card-title">{print.name}</h5>
                     <h6>Art by {user?.name}</h6>

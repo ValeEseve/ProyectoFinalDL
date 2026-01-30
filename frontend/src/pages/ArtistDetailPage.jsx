@@ -24,7 +24,7 @@ const ArtistDetail = () => {
     <main>
       <div className='container-fluid d-flex gap-4 justify-content-center mt-5'>
         <section className='d-flex flex-column gap-5 user-details'>
-          <img className='rounded-circle' src={artist.img} alt={artist.name} />
+          <img className='rounded-circle' src={artist.img | null} alt={artist.name} />
           <h2>{artist.name}</h2>
           <div className='d-flex gap-2'>
             <i className="fa-brands fa-square-instagram"></i> <p>{artist.instagram}</p>

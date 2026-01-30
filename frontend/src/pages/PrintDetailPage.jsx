@@ -26,7 +26,7 @@ const PrintDetail = () => {
     <main>
       <section className='d-flex m-5'>
         <div className='print-img-frame'>
-        <img src={print.img} alt={print.name} className='print-img' />
+        <img src={print.img | null} alt={print.name} className='print-img' />
         </div>
         <div className='ms-3 p-4'>
           <h1>{print.name} <span className='text-muted text-black-50'>by {printArtist.name}</span></h1>

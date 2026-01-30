@@ -19,3 +19,5 @@ export const createUser = async (email, password, name) => {
   const { rows } = await pool.query(query, [email, password, name]);
   return rows[0];
 };
+
+

@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">PRINTSxPRINTS</a>
+                <Link className="navbar-brand" to={"/"}>PRINTSxPRINTS</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -48,29 +48,8 @@ const Navbar = () => {
                             <Link to={token ? "/profile" : "/login"}
                                 className="btn btn-success nav-login-btn" >
                                 {token ? (
-                                    <div className="nav-avatar">
-                                        <img
-                                            className="nav-avatar__img"
-                                            src={profileImgUrl}
-                                            alt="Profile"
-                                        />
-                                        <li className="nav-item nav-avatar-dropdown">
-                                            <div className="nav-avatar-trigger">
-                                                <div className="nav-avatar">
-                                                    <img
-                                                        className="nav-avatar__img"
-                                                        src={profileImgUrl}
-                                                        alt="Profile"
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="nav-avatar-menu">
-                                                <Link to="/profile">Profile</Link>
-                                                <Link to="/profile/settings">Settings</Link>
-                                                <button onClick={logout}>Logout</button>
-                                            </div>
-                                        </li>
+                                    <div className="nav-avatar">                                        
+                                        {profileImgUrl && <img src={profileImgUrl} alt="Profile image" />}
 
                                     </div>
                                 ) : (
@@ -80,9 +59,9 @@ const Navbar = () => {
                         </li>
 
                         <li className="nav-item">
-                            <Link to={"/cart"}><button className='btn btn-warning'><i className="fa-solid fa-cart-shopping"></i> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                            <Link to={"/cart"} className='btn btn-warning'><i className="fa-solid fa-cart-shopping"></i> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
                                 {getTotalItems()}
-                            </span> </button></Link>
+                            </span></Link>
                         </li>
                     </ul>
                     {/* <form className="d-flex" role="search">
