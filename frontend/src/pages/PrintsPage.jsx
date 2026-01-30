@@ -7,6 +7,8 @@ const PrintsPage = () => {
   const { prints } = useContext(PrintContext)
   const { users } = useContext(UserContext)
   const [printsWithArtist, setPrintsWithArtist] = useState([])
+  console.log("Prints en PrintPage: ", prints)
+  console.log("Users en PrintPage: ", users)
 
   useEffect(() => {
     if (!prints.length || !users.length) return;

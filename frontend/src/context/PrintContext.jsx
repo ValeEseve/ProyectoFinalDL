@@ -6,14 +6,16 @@ import { UserContext } from "./UserContext";
 export const PrintContext = createContext({})
 
 const PrintsProvider = ({ children }) => {
-    const {token} = useContext(UserContext)
+    const { token } = useContext(UserContext)
 
     const [prints, setPrints] = useState([])
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const getPrints = async () => {
+        console.log("🟢 getPrints ejecutándose");
         const { data: posts } = await axios.get(apiUrl + "/prints")
+        console.log("📦 prints recibidas:", posts);
         setPrints([...posts]);
     };
 
@@ -21,19 +23,20 @@ const PrintsProvider = ({ children }) => {
         const post = { title, descr, width, height, imgUrl, price };
         await axios.post(apiUrl + "/prints", post, {
             headers: {
-    Authorization: `Bearer ${token}`
-  }
+                Authorization: `Bearer ${token}`
+            }
         });
     };
 
     useEffect(() => {
         getPrints()
     }, [])
-
+    
     return (
-        <PrintContext.Provider value={{ addPrint, 
+        <PrintContext.Provider value={{
+            addPrint,
             prints, setPrints
-         }}>
+        }}>
             {children}
         </PrintContext.Provider>
     )

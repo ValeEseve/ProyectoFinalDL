@@ -124,6 +124,7 @@ const UsersProvider = ({ children }) => {
             setToken(storedToken)
             setEmail(storedEmail)
         }
+        fetchAPI()
     }, [])
 
     useEffect(() => {

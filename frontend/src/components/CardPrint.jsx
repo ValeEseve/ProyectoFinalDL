@@ -4,7 +4,7 @@ import './CardPrint.css'
 
 const CardPrint = ({ print, user }) => {
     const { addToCart, isInCart } = useCart();
-
+    console.log("Print llegando a CardPrint: ", print, "User llegando a CardPrint: ", user)
     const handleAddToCart = () => {
         addToCart(print);
     };
