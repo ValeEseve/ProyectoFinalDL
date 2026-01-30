@@ -19,7 +19,7 @@ const ProfilePage = () => {
         <nav className="profile-nav d-flex flex-column g-4 ps-5">
           <Link to="my-prints"><h5>My Prints</h5></Link>
           <Link to="my-orders"><h5>My Orders</h5></Link>
-          <Link to="new-post"><h5>New print</h5></Link>
+          <Link to="new-post"><h5>New Print</h5></Link>
           <Link to="settings"><h5>Settings</h5></Link>
         </nav>
 
