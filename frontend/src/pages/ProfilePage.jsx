@@ -1,16 +1,16 @@
 import { useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 import "../styles/ProfilePage.css"
-import { Link, Outlet, Route, Routes } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
 const ProfilePage = () => {
-  const { name, email, profileImgUrl } = useContext(UserContext)
+  const { name,  profileImgUrl } = useContext(UserContext)
 
   return (
     <main className="profile-page">
       <header className="profile-header d-flex g-5 align-items-center w-100 pt-5 ps-5">
         <div className="avatar">
-          <img src={profileImgUrl | null} alt={`${name} profile photo`} />
+          <img src={profileImgUrl} alt={`${name} profile photo`} />
         </div>
         <h4 className='ms-4'>Hi, {name}!</h4>
       </header>

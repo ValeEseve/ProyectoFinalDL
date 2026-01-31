@@ -79,7 +79,7 @@ const UsersProvider = ({ children }) => {
             setEmail(data.email);
             localStorage.setItem("token", data.token);
             navigate("/login", {
-                state: { successMessage: "User created successfully" }
+                state: { successMessage: "User created successfully!" }
             });
         } else {
             alert(data?.error || "Error en registro");
