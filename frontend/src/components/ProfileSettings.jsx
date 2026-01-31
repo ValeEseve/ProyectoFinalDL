@@ -7,7 +7,6 @@ const ProfileSettings = () => {
   const [profileImg, setProfileImg] = useState("");
   const [username, setUsername] = useState("")
   const [name, setName] = useState("")
-  const [isArtist, setIsArtist] = useState(null)
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -84,8 +83,26 @@ const ProfileSettings = () => {
     }
   };
 
-  const handleBecomeArtist = () => {
+  const handleBecomeArtist = async () => {
+    if (user.is_artist) return;
+    try {
+      const response = await fetch(`${apiUrl}/users/me`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ is_artist: true }),
+      });
 
+      if (!response.ok) throw new Error("Failed to update to artist account");
+
+      const updatedUser = await response.json();
+
+      updateUser(updatedUser);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 
@@ -98,9 +115,6 @@ const ProfileSettings = () => {
     }
     if (user?.name) {
       setName(user.name);
-    }
-    if (user?.is_artist) {
-      setIsArtist(user.is_artist);
     }
   }, [user]);
 
@@ -143,7 +157,7 @@ const ProfileSettings = () => {
       </form>
 
 
-            {!isArtist && (
+      {!user?.is_artist && (
         <button
           className="btn btn-outline-primary"
           onClick={handleBecomeArtist}
@@ -151,6 +165,7 @@ const ProfileSettings = () => {
           Become an artist
         </button>
       )}
+
 
     </div >
   )

@@ -42,7 +42,7 @@ export const updateProfileImage = async (req, res) => {
 export const updateMe = async (req, res) => {
   try {
     const userId = req.user.id; 
-    const { username, profile_img_url, name } = req.body;
+    const { username, profile_img_url, name, is_artist } = req.body;
 
     const { rows } = await pool.query(
       `
@@ -50,11 +50,12 @@ export const updateMe = async (req, res) => {
       SET
         username = COALESCE($1, username),
         profile_img_url = COALESCE($2, profile_img_url),
-        name = COALESCE($3, name)
-      WHERE id = $4
+        name = COALESCE($3, name),
+        is_artist = COALESCE($4, is_artist)
+      WHERE id = $5
       RETURNING id, email, name, username, profile_img_url, is_artist
       `,
-      [username, profile_img_url, name, userId]
+      [username, profile_img_url, name, is_artist, userId]
     );
 
     res.json(rows[0]);
