@@ -77,7 +77,7 @@ export const createArtist = async (req, res) => {
     const user = req.user; 
 
     if (user.is_artist) {
-      return res.status(400).json({ message: "El usuario ya es artista" });
+      return res.status(400).json({ message: "User has already an artist account" });
     }
 
     const slug = await createUniqueSlug(user.username);
@@ -106,7 +106,7 @@ export const createArtist = async (req, res) => {
   } catch (error) {
     await pool.query("ROLLBACK");
     console.error(error);
-    res.status(500).json({ message: "Error creating artist profile" });
+    res.status(500).json({ message: "Error creating artist account" });
   }
 };
 

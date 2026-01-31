@@ -37,6 +37,8 @@ const ArtistProvider = ({ children }) => {
         }
      }
 
+     
+
     useEffect(() => {
         fetchArtists()
     }, [])

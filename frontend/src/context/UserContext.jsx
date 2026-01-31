@@ -5,6 +5,7 @@ export const UserContext = createContext({})
 
 const UsersProvider = ({ children }) => {
     const [users, setUsers] = useState([])
+    const [user, setUser] = useState(null);
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const fetchAPI = async () => {
@@ -40,6 +41,15 @@ const UsersProvider = ({ children }) => {
 
     const navigate = useNavigate()
 
+    const updateUser = (newUser) => {
+        setUser(newUser);
+
+        if (newUser?.email) setEmail(newUser.email);
+        if (newUser?.name) setName(newUser.name);
+        if (newUser?.profile_img_url) setProfileImgUrl(newUser.profile_img_url);
+    };
+
+
     const login = async (email, password) => {
         const url = apiUrl + "/auth/login"
         const response = await fetch(url, {
@@ -55,6 +65,7 @@ const UsersProvider = ({ children }) => {
         if (response.ok) {
             setToken(data.token);
             setEmail(data.email);
+            updateUser(data)
             localStorage.setItem("token", data.token);
             localStorage.setItem("email", data.email)
             navigate("/profile")
@@ -103,18 +114,20 @@ const UsersProvider = ({ children }) => {
 
         const data = await response.json();
         if (response.ok) {
-            console.log("Perfil:", data);
             setEmail(data.email);
             setName(data.name)
             setProfileImgUrl(data.profile_img_url)
+            updateUser(data)
+
         } else {
-            alert(data?.error || "Error al obtener perfil");
+            alert(data?.error || "Error fetching profile");
         }
     };
 
     const logout = () => {
         setToken(null);
-        setEmail("");
+        setEmail("")
+        setUser(null)
         localStorage.removeItem("token")
         localStorage.removeItem("email");
         navigate("/")
@@ -140,6 +153,7 @@ const UsersProvider = ({ children }) => {
     return (
         <UserContext.Provider value={{
             users,
+            user,
             token,
             email,
             name,
@@ -147,7 +161,8 @@ const UsersProvider = ({ children }) => {
             login,
             register,
             logout,
-            getProfile
+            getProfile,
+            updateUser
         }}>
             {children}
         </UserContext.Provider>
