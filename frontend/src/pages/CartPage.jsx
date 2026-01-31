@@ -8,8 +8,20 @@ const CartPage = () => {
     increaseQuantity, 
     decreaseQuantity, 
     clearCart, 
-    getTotal 
+    getTotal,
+    getOrderItemsPayload
   } = useCart();
+
+  const handleCreateOrder = async () => {
+  const payload = {
+    shipping_address_id: selectedAddressId,
+    items: getOrderItemsPayload()
+  };
+
+  await api.post('/orders', payload);
+  clearCart();
+};
+
 
   if (cart.length === 0) {
     return (

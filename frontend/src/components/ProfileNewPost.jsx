@@ -60,8 +60,8 @@ const ProfileNewPost = () => {
           {errors.descr && (
             <small className="text-danger">{errors.descr}</small>
           )}
-          <textarea value={descr} name="descr" id="descr" cols="30" rows="10" placeholder='Something funny, something deep, you decide... A good description always makes a difference.' maxLength={1000} className={`w-50 ${errors.descr ? "is-invalid" : ""}`} onChange={(e) => { setDescr(e.target.value) }}></textarea>
-          <p className='text-secondary-emphasis'>{descr.length}/1000</p>
+          <textarea value={descr} name="descr" id="descr" cols="30" rows="10" placeholder='Something funny, something deep, you decide... A good description always makes a difference.' maxLength={1500} className={`w-50 ${errors.descr ? "is-invalid" : ""}`} onChange={(e) => { setDescr(e.target.value) }}></textarea>
+          <p className='text-secondary-emphasis'>{descr.length}/1500</p>
           <div className='d-flex input-dimensions'>
             <label htmlFor="width" className='me-2'>Width</label>
             {errors.width && (
