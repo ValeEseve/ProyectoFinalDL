@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { getFeatured } from "../utils/featured"
 import CardArtist from "./CardArtist";
-import { UserContext } from "../context/UserContext";
+import { ArtistContext } from "../context/ArtistContext";
 
 const FeaturedArtists = () => {
-  const { users } = useContext(UserContext)
-  const featured = getFeatured(users, 4);
+  const { artists } = useContext(ArtistContext)
+  const featured = getFeatured(artists, 4);
 
   return (
     <div>

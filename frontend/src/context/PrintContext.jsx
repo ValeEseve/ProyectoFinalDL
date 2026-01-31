@@ -13,9 +13,9 @@ const PrintsProvider = ({ children }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const getPrints = async () => {
-        console.log("🟢 getPrints ejecutándose");
+        console.log("getPrints ejecutándose");
         const { data: posts } = await axios.get(apiUrl + "/prints")
-        console.log("📦 prints recibidas:", posts);
+        console.log("prints recibidas:", posts);
         setPrints([...posts]);
     };
 
