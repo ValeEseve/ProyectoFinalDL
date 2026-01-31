@@ -4,7 +4,7 @@ import { createUniqueSlug } from "../utils/slug.utils.js";
 export const getAllArtists = async (req, res) => {
   try {
     const { rows } = await pool.query(
-      "SELECT id, name, bio, avatar, slug FROM artists",
+      "SELECT id, name, bio, img_url, slug FROM artists",
     );
 
     res.status(200).json(rows);

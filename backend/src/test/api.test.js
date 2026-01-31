@@ -10,7 +10,9 @@ describe('Auth API', () => {
       .post('/auth/register')
       .send({
         email: 'test@test.com',
-        password: '123456'
+        password: '123456',
+        username: 'testtest',
+        name: 'Mr Test'
       });
 
     expect([201, 409]).toContain(res.statusCode);
