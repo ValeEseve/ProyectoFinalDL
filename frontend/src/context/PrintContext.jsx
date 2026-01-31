@@ -19,8 +19,8 @@ const PrintsProvider = ({ children }) => {
         setPrints([...posts]);
     };
 
-    const addPrint = async (title, descr, width, height, imgUrl, price) => {
-        const post = { title, descr, width, height, imgUrl, price };
+    const addPrint = async (title, descr, width, height, artistId, price) => {
+        const post = { title, descr, width, height, artistId, price };
         await axios.post(apiUrl + "/prints", post, {
             headers: {
                 Authorization: `Bearer ${token}`

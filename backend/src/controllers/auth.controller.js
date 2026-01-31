@@ -9,19 +9,19 @@ export const register = async (req, res) => {
     const { email, password, name } = req.body;
 
     if (!email || !password || !name) {
-      return res.status(400).json({ message: 'Faltan datos' });
+      return res.status(400).json({ message: 'Data required' });
     }
 
     const userExists = await getUserByEmail(email);
     if (userExists) {
-      return res.status(409).json({ message: 'Usuario ya existe' });
+      return res.status(409).json({ message: 'User already exists' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await createUser(email, hashedPassword, name);
 
     res.status(201).json({
-      message: 'Usuario creado',
+      message: 'User created',
       user: {
         id: newUser.id,
         email: newUser.email
@@ -38,12 +38,12 @@ export const login = async (req, res) => {
 
     const user = await getUserByEmail(email);
     if (!user) {
-      return res.status(401).json({ message: 'Credenciales inválidas' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Credenciales inválidas' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     const token = jwt.sign(

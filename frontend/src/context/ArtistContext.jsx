@@ -23,9 +23,9 @@ const ArtistProvider = ({ children }) => {
         }
     }
 
-    const fetchArtistById = async (id) => { 
+    const fetchArtistBySlug = async (id) => { 
         setLoading(true)
-        const url =  `${apiUrl}/artists/${id}`
+        const url =  `${apiUrl}/artists/${slug}`
         try {
             const response = await fetch(url)
             const data = await response.json()

@@ -7,4 +7,5 @@ const router = Router();
 router.get('/', getPrints);
 router.post('/', verifyToken, createPrint);
 
+
 export default router;
