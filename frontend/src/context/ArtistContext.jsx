@@ -43,7 +43,7 @@ const ArtistProvider = ({ children }) => {
 
     return (
         <ArtistContext.Provider value={
-            {   fetchArtistById,
+            {   fetchArtistBySlug,
                 artists, selectedArtist, loading
             }
         }>

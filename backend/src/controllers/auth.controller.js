@@ -1,14 +1,14 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { getUserByEmail, createUser } from '../db/queries.js';
+import { getUserByEmail, createUser, getUserByUsername } from '../db/queries.js';
 import { pool } from '../db/connection.js';
 
 
 export const register = async (req, res) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, username } = req.body;
 
-    if (!email || !password || !name) {
+    if (!email || !password || !name || !username) {
       return res.status(400).json({ message: 'Data required' });
     }
 
@@ -17,8 +17,13 @@ export const register = async (req, res) => {
       return res.status(409).json({ message: 'User already exists' });
     }
 
+    const usernameExists = await getUserByUsername(email);
+    if (usernameExists) {
+      return res.status(409).json({ message: 'Username already exists' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await createUser(email, hashedPassword, name);
+    const newUser = await createUser(email, hashedPassword, name, username);
 
     res.status(201).json({
       message: 'User created',

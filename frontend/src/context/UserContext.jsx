@@ -63,14 +63,14 @@ const UsersProvider = ({ children }) => {
         }
     }
 
-    const register = async (email, password, name) => {
+    const register = async (email, password, name, username) => {
         const url = apiUrl + "/auth/register";
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email, password, name }),
+            body: JSON.stringify({ email, password, name, username }),
         });
         const data = await response.json();
 
@@ -78,6 +78,9 @@ const UsersProvider = ({ children }) => {
             setToken(data.token);
             setEmail(data.email);
             localStorage.setItem("token", data.token);
+            navigate("/login", {
+                state: { successMessage: "User created successfully" }
+            });
         } else {
             alert(data?.error || "Error en registro");
         }
