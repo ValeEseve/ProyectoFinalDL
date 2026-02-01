@@ -24,7 +24,6 @@ const PrintsProvider = ({ children }) => {
 
     const addPrint = async (title, descr, width, height, imgUrl, price) => {
         const post = { title, descr, width, height, imgUrl, price };
-        console.log("Token in addPrint ", token)
         await axios.post(apiUrl + "/prints", post, {
             headers: {
                 Authorization: `Bearer ${token}`

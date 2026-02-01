@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import './CardPrint.css'
 
-const CardPrint = ({ print, user }) => {
+const CardPrint = ({ print, artist }) => {
     const { addToCart, isInCart } = useCart();
-    console.log("Print llegando a CardPrint: ", print, "User llegando a CardPrint: ", user)
+    console.log("Print llegando a CardPrint: ", print, "User llegando a CardPrint: ", artist)
     const handleAddToCart = () => {
         addToCart(print);
     };
@@ -12,10 +12,10 @@ const CardPrint = ({ print, user }) => {
         <article>
             
             <div className="card" style={{ width: "18rem" }}>
-                <Link to={`/prints/${print.id}`}><img src={print.img | null} className="card-img-top p-2 card-img-fixed" alt="..." /></Link>
+                <Link to={`/prints/${print.id}`}><img src={print.img_url | null} className="card-img-top p-2 card-img-fixed" alt="..." /></Link>
                 <div className="card-body">
-                    <h5 className="card-title">{print.name}</h5>
-                    <h6>Art by {user?.name}</h6>
+                    <h5 className="card-title">{print.title}</h5>
+                    <h6>Art by {artist?.name}</h6>
                     <div className='d-flex justify-content-between align-items-center'>
                         <p>${print.price}</p>
                         <button

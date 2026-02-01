@@ -8,7 +8,7 @@ export const getAllArtists = async (req, res) => {
     artists.id,
     artists.slug,
     artists.bio,
-    artists.img_url,
+    artists.profile_img_url,
     users.username
   FROM artists
   JOIN users ON artists.user_id = users.id
@@ -31,7 +31,7 @@ export const getArtistBySlug = async (req, res) => {
         artists.id,
         artists.slug,
         artists.bio,
-        artists.img_url,
+        artists.profile_img_url,
         users.username
       FROM artists
       JOIN users ON artists.user_id = users.id
@@ -105,7 +105,7 @@ export const createArtist = async (req, res) => {
     await client.query("UPDATE users SET is_artist = true WHERE id = $1", [userId]);
     
     await client.query(
-      `INSERT INTO artists (user_id, slug, bio, img_url, name)
+      `INSERT INTO artists (user_id, slug, bio, profile_img_url, name)
        VALUES ($1, $2, 'Write an amazing bio, do not be shy.', $3, $4)`,
       [userId, slug, profile_img_url, name]
     );

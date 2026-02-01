@@ -2,31 +2,30 @@ import { useContext, useEffect, useState } from 'react'
 import { PrintContext } from '../context/PrintContext'
 import { UserContext } from '../context/UserContext'
 import CardPrint from '../components/CardPrint'
+import { ArtistContext } from '../context/ArtistContext'
 
 const PrintsPage = () => {
   const { prints } = useContext(PrintContext)
-  const { users } = useContext(UserContext)
+  const { artists } = useContext(ArtistContext)
   const [printsWithArtist, setPrintsWithArtist] = useState([])
-  console.log("Prints en PrintPage: ", prints)
-  console.log("Users en PrintPage: ", users)
 
   useEffect(() => {
-    if (!prints.length || !users.length) return;
+    if (!prints.length || !artists.length) return;
     setPrintsWithArtist(
       prints.map(print => {
-        const foundUser = users.find(u => String(u.id) === String(print.userId));
+        const foundUser = artists.find(u => String(u.id) === String(print.userId));
         return {
           ...print,
-          user: foundUser
+          artist: foundUser
         }
       })
     );
-  }, [prints, users]);
+  }, [prints, artists]);
   return (
     <main>
       <section className='d-flex justify-content-center flex-wrap gap-5'>
         {printsWithArtist.map((print) => (
-          <CardPrint key={print.id} print={print} user={print.user} />
+          <CardPrint key={print.id} print={print} artist={print.artist} />
         ))}
       </section>
     </main>

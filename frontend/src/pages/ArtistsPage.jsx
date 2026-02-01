@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import { UserContext } from '../context/UserContext'
 import CardArtist from '../components/CardArtist'
+import { ArtistContext } from '../context/ArtistContext'
 
 const ArtistsPage = () => {
-  const {users} = useContext(UserContext)
+  const {artists} = useContext(ArtistContext)
 
   return (
     <main>
       <section className='d-flex justify-content-center flex-wrap gap-5'>
-      {users.map((artist)=>(
+      {artists.map((artist)=>(
         <CardArtist key={artist.id} artist={artist} />
       ))}
       </section>
