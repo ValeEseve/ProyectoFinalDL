@@ -15,6 +15,7 @@ import ProfileMyPrints from './components/ProfileMyPrints'
 import ProfileMyOrders from './components/ProfileMyOrders'
 import ProfileNewPost from './components/ProfileNewPost'
 import ProfileSettings from './components/ProfileSettings'
+import ProfileOrderDetail from './components/ProfileOrderDetail'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />}>
           <Route path="my-prints" element={<ProfileMyPrints />} />
           <Route path="my-orders" element={<ProfileMyOrders />} />
+          <Route path="my-orders/:id" element={<ProfileOrderDetail />} />
           <Route path="new-post" element={<ProfileNewPost />} />
           <Route path="settings" element={<ProfileSettings />} />
         </Route>

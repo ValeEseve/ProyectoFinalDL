@@ -57,6 +57,13 @@ export const getOrderById = async (req, res) => {
         o.total_price,
         o.status,
         o.created_at,
+        json_build_object(
+          'id', a.id,
+          'street', a.street,
+          'city', a.city,
+          'postal_code', a.postal_code,
+          'country', a.country
+        ) as address,
         json_agg(
           json_build_object(
             'id', oi.id,
@@ -67,15 +74,16 @@ export const getOrderById = async (req, res) => {
               'title', p.title,
               'img_url', p.img_url,
               'price', p.price,
-              'description', p.descr
+              'description', p.description
             )
           )
         ) as items
       FROM orders o
+      LEFT JOIN addresses a ON o.shipping_address = a.id
       LEFT JOIN order_items oi ON o.id = oi.order_id
       LEFT JOIN prints p ON oi.print_id = p.id
       WHERE o.id = $1 AND o.user_id = $2
-      GROUP BY o.id
+      GROUP BY o.id, a.id
       `,
       [id, userId]
     );

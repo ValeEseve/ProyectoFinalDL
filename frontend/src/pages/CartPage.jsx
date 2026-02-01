@@ -32,7 +32,7 @@ const CartPage = () => {
       return;
     }
 
-    const shippingAddressId = 1; // TODO: Implementar selector de direcciones
+    const shippingAddressId = 1
 
     setIsProcessing(true);
     
