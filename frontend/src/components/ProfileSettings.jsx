@@ -84,26 +84,22 @@ const ProfileSettings = () => {
   };
 
   const handleBecomeArtist = async () => {
-    if (user.is_artist) return;
+    if (user?.is_artist) return;
     try {
-      const response = await fetch(`${apiUrl}/users/me`, {
-        method: "PUT",
+      const response = await fetch(`${apiUrl}/artists`, {
+        method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ is_artist: true }),
       });
-
-      if (!response.ok) throw new Error("Failed to update to artist account");
-
-      const updatedUser = await response.json();
-
-      updateUser(updatedUser);
+      if (!response.ok) {
+        throw new Error("Failed to create artist profile");
+      }
+      updateUser({ ...user, is_artist: true })
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
 
   useEffect(() => {
@@ -157,14 +153,14 @@ const ProfileSettings = () => {
       </form>
 
 
-      {!user?.is_artist && (
-        <button
-          className="btn btn-outline-primary"
-          onClick={handleBecomeArtist}
-        >
-          Become an artist
-        </button>
-      )}
+      <button
+        className={user?.is_artist ? 'btn btn-light disabled' : 'btn btn-info'}
+        onClick={handleBecomeArtist}
+        disabled={user?.is_artist}
+      >
+        {user?.is_artist ? 'You are already an artist' : 'Become an artist'}
+      </button>
+
 
 
     </div >

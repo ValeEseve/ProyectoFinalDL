@@ -3,9 +3,16 @@ import { createUniqueSlug } from "../utils/slug.utils.js";
 
 export const getAllArtists = async (req, res) => {
   try {
-    const { rows } = await pool.query(
-      "SELECT id, name, bio, img_url, slug FROM artists",
-    );
+    const { rows } = await pool.query(`
+  SELECT
+    artists.id,
+    artists.slug,
+    artists.bio,
+    artists.img_url,
+    users.username
+  FROM artists
+  JOIN users ON artists.user_id = users.id
+`);
 
     res.status(200).json(rows);
   } catch (error) {
@@ -16,7 +23,7 @@ export const getAllArtists = async (req, res) => {
 
 export const getArtistBySlug = async (req, res) => {
   try {
-    const { slug } = req.params;
+    const {slug} = req.params;
 
     const { rows } = await pool.query(
       `
@@ -24,7 +31,7 @@ export const getArtistBySlug = async (req, res) => {
         artists.id,
         artists.slug,
         artists.bio,
-        artists.avatar,
+        artists.img_url,
         users.username
       FROM artists
       JOIN users ON artists.user_id = users.id
@@ -45,7 +52,7 @@ export const getArtistBySlug = async (req, res) => {
 };
 
 export const getPrintsBySlug = async (req, res) => {
-  const slug = req.params;
+  const {slug} = req.params;
   try {
     const { rows } = await pool.query(
       `
@@ -71,42 +78,50 @@ export const getPrintsBySlug = async (req, res) => {
   }
 };
 
-
 export const createArtist = async (req, res) => {
+  const client = await pool.connect();
   try {
-    const user = req.user; 
-
-    if (user.is_artist) {
-      return res.status(400).json({ message: "User has already an artist account" });
+    const userId = req.user.id;
+    
+    const { rows: userRows } = await client.query(
+      "SELECT username, is_artist, name, profile_img_url FROM users WHERE id = $1",
+      [userId]
+    );
+    
+    if (!userRows[0]) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    const { username, is_artist, name, profile_img_url } = userRows[0];
+    
+    if (is_artist) {
+      return res.status(400).json({ message: "User already has an artist account" });
     }
 
-    const slug = await createUniqueSlug(user.username);
-
-    await pool.query("BEGIN");
-
-    await pool.query(
-      "UPDATE users SET is_artist = true WHERE id = $1",
-      [user.id]
+    const slug = await createUniqueSlug(username)
+    
+    await client.query("BEGIN");
+    
+    await client.query("UPDATE users SET is_artist = true WHERE id = $1", [userId]);
+    
+    await client.query(
+      `INSERT INTO artists (user_id, slug, bio, img_url, name)
+       VALUES ($1, $2, 'Write an amazing bio, do not be shy.', $3, $4)`,
+      [userId, slug, profile_img_url, name]
     );
-
-    await pool.query(
-      `
-      INSERT INTO artists (user_id, slug, bio, img_url)
-      VALUES ($1, $2, '', $3)
-      `,
-      [user.id, slug, user.img_url]
-    );
-
-    await pool.query("COMMIT");
-
+    
+    await client.query("COMMIT");
+    
     res.status(201).json({
       message: "Artist profile created!",
       slug,
+      is_artist: true
     });
   } catch (error) {
-    await pool.query("ROLLBACK");
-    console.error(error);
+    await client.query("ROLLBACK");
+    console.error("Create artist error:", error);
     res.status(500).json({ message: "Error creating artist account" });
+  } finally {
+    client.release();
   }
 };
-

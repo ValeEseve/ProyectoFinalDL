@@ -99,7 +99,7 @@ const UsersProvider = ({ children }) => {
 
     const getProfile = async () => {
         if (!token) {
-            console.error("No hay token disponible");
+            console.error("Token unavailable");
             return;
         }
 
@@ -140,7 +140,7 @@ const UsersProvider = ({ children }) => {
             setToken(storedToken)
             setEmail(storedEmail)
         }
-        fetchAPI()
+        if (token) { fetchAPI() }
     }, [])
 
     useEffect(() => {
