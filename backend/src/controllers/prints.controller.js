@@ -28,7 +28,7 @@ export const createPrint = async (req, res) => {
   }
 
   const artistId = artistResult.rows[0].id;
-
+  console.log("Artist ID en createPrint: ", artistId)
   try {
     const { rows } = await pool.query(
       `INSERT INTO prints (title, description, width, height, img_url, price, artist_id)
