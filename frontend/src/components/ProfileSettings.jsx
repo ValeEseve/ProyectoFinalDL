@@ -180,7 +180,7 @@ const ProfileSettings = () => {
     }
   };
 
-  const handleSaveBio = async (e) => {
+ const handleSaveBio = async (e) => {
   e.preventDefault();
   
   if (!bio.trim()) {
@@ -221,7 +221,6 @@ const ProfileSettings = () => {
     setIsUpdating(prev => ({ ...prev, bio: false }));
   }
 };
-
   useEffect(() => {
     if (user?.profile_img_url) {
       setProfileImg(user.profile_img_url);

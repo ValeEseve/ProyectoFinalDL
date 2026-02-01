@@ -5,14 +5,14 @@ export const getAllArtists = async (req, res) => {
   try {
     const { rows } = await pool.query(`
   SELECT
-    artists.id,
-    artists.slug,
-    artists.bio,
-    artists.profile_img_url,
-    users.username,
-    users.name
+  artists.id,
+  artists.slug,
+  artists.bio,
+  users.username,
+  users.name,
+  users.profile_img_url
   FROM artists
-  JOIN users ON artists.user_id = users.id
+  JOIN users ON artists.user_id = users.id;
 `);
 
     res.status(200).json(rows);
@@ -24,7 +24,7 @@ export const getAllArtists = async (req, res) => {
 
 export const getArtistBySlug = async (req, res) => {
   try {
-    const {slug} = req.params;
+    const { slug } = req.params;
 
     const { rows } = await pool.query(
       `
@@ -32,11 +32,12 @@ export const getArtistBySlug = async (req, res) => {
         artists.id,
         artists.slug,
         artists.bio,
-        artists.profile_img_url,
-        users.username
+        users.username,
+        users.name,
+        users.profile_img_url
       FROM artists
       JOIN users ON artists.user_id = users.id
-      WHERE artists.slug = $1
+      WHERE artists.slug = $1;
       `,
       [slug],
     );
@@ -50,10 +51,10 @@ export const getArtistBySlug = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Error" });
   }
-}
+};
 
 export const getPrintsBySlug = async (req, res) => {
-  const {slug} = req.params;
+  const { slug } = req.params;
   try {
     const { rows } = await pool.query(
       `
@@ -83,40 +84,44 @@ export const createArtist = async (req, res) => {
   const client = await pool.connect();
   try {
     const userId = req.user.id;
-    
+
     const { rows: userRows } = await client.query(
       "SELECT username, is_artist, name, profile_img_url FROM users WHERE id = $1",
-      [userId]
+      [userId],
     );
-    
+
     if (!userRows[0]) {
       return res.status(404).json({ message: "User not found" });
     }
-    
+
     const { username, is_artist, name, profile_img_url } = userRows[0];
-    
+
     if (is_artist) {
-      return res.status(400).json({ message: "User already has an artist account" });
+      return res
+        .status(400)
+        .json({ message: "User already has an artist account" });
     }
 
-    const slug = await createUniqueSlug(username)
-    
+    const slug = await createUniqueSlug(username);
+
     await client.query("BEGIN");
-    
-    await client.query("UPDATE users SET is_artist = true WHERE id = $1", [userId]);
-    
+
+    await client.query("UPDATE users SET is_artist = true WHERE id = $1", [
+      userId,
+    ]);
+
     await client.query(
       `INSERT INTO artists (user_id, slug, bio, profile_img_url, name)
        VALUES ($1, $2, 'Write an amazing bio, do not be shy.', $3, $4)`,
-      [userId, slug, profile_img_url, name]
+      [userId, slug, profile_img_url, name],
     );
-    
+
     await client.query("COMMIT");
-    
+
     res.status(201).json({
       message: "Artist profile created!",
       slug,
-      is_artist: true
+      is_artist: true,
     });
   } catch (error) {
     await client.query("ROLLBACK");
@@ -128,12 +133,12 @@ export const createArtist = async (req, res) => {
 };
 export const updateArtistProfile = async (req, res) => {
   try {
-    const userId = req.user.id; 
-    const { bio, img_url } = req.body;
+    const userId = req.user.id;
+    const { bio} = req.body;
 
     if (bio && bio.trim().length < 10) {
-      return res.status(400).json({ 
-        message: 'Bio must be at least 10 characters' 
+      return res.status(400).json({
+        message: "Bio must be at least 10 characters",
       });
     }
 
@@ -147,15 +152,9 @@ export const updateArtistProfile = async (req, res) => {
       paramCount++;
     }
 
-    if (img_url !== undefined) {
-      updates.push(`img_url = $${paramCount}`);
-      values.push(img_url);
-      paramCount++;
-    }
-
     if (updates.length === 0) {
-      return res.status(400).json({ 
-        message: 'No fields to update' 
+      return res.status(400).json({
+        message: "No fields to update",
       });
     }
 
@@ -164,22 +163,23 @@ export const updateArtistProfile = async (req, res) => {
     const { rows } = await pool.query(
       `
       UPDATE artists
-      SET ${updates.join(', ')}
+      SET ${updates.join(", ")}
       WHERE user_id = $${paramCount}
-      RETURNING id, user_id, bio, img_url, slug
+      RETURNING id, user_id, bio, slug
       `,
-      values
+      values,
     );
 
     if (rows.length === 0) {
-      return res.status(404).json({ 
-        message: 'Artist profile not found. You need to become an artist first.' 
+      return res.status(404).json({
+        message:
+          "Artist profile not found. You need to become an artist first.",
       });
     }
 
     res.json(rows[0]);
   } catch (error) {
-    console.error('Error updating artist profile:', error);
-    res.status(500).json({ message: 'Error updating artist profile' });
+    console.error("Error updating artist profile:", error);
+    res.status(500).json({ message: "Error updating artist profile" });
   }
-}
+};

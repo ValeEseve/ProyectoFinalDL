@@ -37,11 +37,11 @@ const ProfileNewPost = () => {
       newErrors.height = "Height must be greater than 0"
     }
 
-    if (!imgUrl.trim()) {
+  /*   if (!imgUrl.trim()) {
       newErrors.imgUrl = "Image URL is required"
     } else if (!imgUrl.match(/^https?:\/\/.+\.(jpg|jpeg|png|webp|gif)$/i)) {
       newErrors.imgUrl = "Please enter a valid image URL"
-    }
+    } */
 
     if (!price || Number(price) <= 0) {
       newErrors.price = "Price must be greater than 0"
@@ -62,10 +62,8 @@ const ProfileNewPost = () => {
     try {
       await addPrint(title, descr, Number(width), Number(height), imgUrl, Number(price))
       
-      // Mostrar mensaje de éxito
       setShowSuccess(true)
       
-      // Limpiar el formulario
       setTitle("")
       setDescr("")
       setWidth("")
@@ -74,10 +72,9 @@ const ProfileNewPost = () => {
       setPrice("")
       setErrors({})
 
-      // Ocultar mensaje después de 5 segundos
       setTimeout(() => {
         setShowSuccess(false)
-      }, 5000)
+      }, 8000)
 
     } catch (error) {
       console.error("Error creating print:", error)

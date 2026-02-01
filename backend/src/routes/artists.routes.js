@@ -12,7 +12,6 @@ const router = Router();
 
 router.post("/", verifyToken, createArtist);
 router.put("/me", verifyToken, updateArtistProfile); 
-
 router.get("/", getAllArtists);
 router.get("/:slug", getArtistBySlug);
 router.get("/:slug/prints", getPrintsBySlug);
