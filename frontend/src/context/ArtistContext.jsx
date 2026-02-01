@@ -23,7 +23,7 @@ const ArtistProvider = ({ children }) => {
         }
     }
 
-    const fetchArtistBySlug = async (id) => { 
+    const fetchArtistBySlug = async (slug) => { 
         setLoading(true)
         const url =  `${apiUrl}/artists/${slug}`
         try {

@@ -26,7 +26,7 @@ function App() {
         <Route path="/prints" element={<PrintsPage />} />
         <Route path="/prints/:id" element={<PrintDetailPage />} />
         <Route path="/artists" element={<ArtistsPage />} />
-        <Route path="/artist/:id" element={<ArtistDetailPage />} />
+        <Route path="/artists/:slug" element={<ArtistDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/cart" element={<CartPage />} />
