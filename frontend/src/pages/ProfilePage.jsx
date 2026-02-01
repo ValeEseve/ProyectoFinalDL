@@ -4,7 +4,7 @@ import "../styles/ProfilePage.css"
 import { Link, Outlet } from 'react-router-dom'
 
 const ProfilePage = () => {
-  const { name,  profileImgUrl } = useContext(UserContext)
+  const { name,  profileImgUrl, user } = useContext(UserContext)
 
   return (
     <main className="profile-page">
@@ -17,9 +17,10 @@ const ProfilePage = () => {
 
       <div className="profile-body d-flex gap-2 w-100">
         <nav className="profile-nav d-flex flex-column g-4 ps-5">
-          <Link to="my-prints"><h5>My Prints</h5></Link>
+          
           <Link to="my-orders"><h5>My Orders</h5></Link>
-          <Link to="new-post"><h5>New Print</h5></Link>
+          {user.is_artist && <Link to="my-prints"><h5>My Prints</h5></Link>}
+          {user.is_artist && <Link to="new-post"><h5>New Print</h5></Link>}
           <Link to="settings"><h5>Settings</h5></Link>
         </nav>
 

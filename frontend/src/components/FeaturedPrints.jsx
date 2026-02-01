@@ -6,7 +6,7 @@ import { UserContext } from '../context/UserContext'
 
 const FeaturedPrints = () => {
     const { prints } = useContext(PrintContext)
-    const { users } = useContext(UserContext)
+    const { users } = useContext(ArtistContext)
     const [printsWithArtist, setPrintsWithArtist] = useState([])
 
     useEffect(() => {

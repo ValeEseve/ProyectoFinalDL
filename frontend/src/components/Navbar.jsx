@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-                <Link className="navbar-brand" to={"/"}>PRINTSxPRINTS</Link>
+                <Link className="navbar-brand" to={"/"}>Printsy</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -48,7 +48,7 @@ const Navbar = () => {
                             <Link to={token ? "/profile" : "/login"}
                                 className="btn btn-success nav-login-btn" >
                                 {token ? (
-                                    <div className="nav-avatar">                                        
+                                    <div className="nav-avatar">
                                         {profileImgUrl && <img src={profileImgUrl} alt="Profile image" />}
 
                                     </div>

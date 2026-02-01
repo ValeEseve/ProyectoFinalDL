@@ -9,9 +9,9 @@ const Footer = () => {
         <div className="row">
           {/* About Section */}
           <div className="col-md-4 mb-4">
-            <h5 className="mb-3">PRINTSxPRINTS</h5>
+            <h5 className="mb-3">Printsy</h5>
             <p className="text-light">
-              Discover unique art prints from talented artists around the world. 
+              Discover unique art prints from talented artists around the world.
               Transform your space with beautiful, high-quality artwork.
             </p>
             <div className="social-icons mt-3">
@@ -64,9 +64,9 @@ const Footer = () => {
               Subscribe to get special offers and updates.
             </p>
             <div className="input-group">
-              <input 
-                type="email" 
-                className="form-control" 
+              <input
+                type="email"
+                className="form-control"
                 placeholder="Your email"
                 aria-label="Email subscription"
               />
@@ -79,11 +79,11 @@ const Footer = () => {
 
 
         <hr className="border-secondary my-4" />
-        
+
         <div className="row align-items-center">
           <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
             <p className="small mb-0">
-              © {currentYear} PRINTSxPRINTS. Made with ❤️ by and for art lovers.
+              © {currentYear} Printsy. Made with ❤️ by and for art lovers.
             </p>
           </div>
           <div className="col-md-6 text-center text-md-end">
