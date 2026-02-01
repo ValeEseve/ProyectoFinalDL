@@ -8,6 +8,7 @@ import PrintsProvider from './context/PrintContext.jsx';
 import UsersProvider from './context/UserContext.jsx';
 import { CartProvider } from './context/CartContext.jsx';
 import ArtistProvider from './context/ArtistContext.jsx';
+import { OrderProvider } from './context/OrderContext.jsx';
 
 
 
@@ -15,13 +16,15 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <UsersProvider>
-        <ArtistProvider>
-          <PrintsProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </PrintsProvider>
-        </ArtistProvider>
+        <CartProvider>
+          <OrderProvider>
+            <ArtistProvider>
+              <PrintsProvider>
+                <App />
+              </PrintsProvider>
+            </ArtistProvider>
+          </OrderProvider>
+        </CartProvider>
       </UsersProvider>
     </BrowserRouter>
   </StrictMode>,

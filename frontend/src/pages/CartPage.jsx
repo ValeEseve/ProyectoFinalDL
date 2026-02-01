@@ -1,5 +1,8 @@
 import { useCart } from '../context/CartContext'
-import { Link } from 'react-router-dom'
+import { useOrders } from '../context/OrderContext'
+import { UserContext } from '../context/UserContext'
+import { Link, useNavigate } from 'react-router-dom'
+import { useContext, useState } from 'react'
 
 const CartPage = () => {
   const { 
@@ -12,16 +15,44 @@ const CartPage = () => {
     getOrderItemsPayload
   } = useCart();
 
+  const { createOrder } = useOrders();
+  const { token } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const handleCreateOrder = async () => {
-  const payload = {
-    shipping_address_id: selectedAddressId,
-    items: getOrderItemsPayload()
+    if (!token) {
+      alert('Please login to create an order');
+      navigate('/login');
+      return;
+    }
+
+    if (cart.length === 0) {
+      alert('Your cart is empty');
+      return;
+    }
+
+    const shippingAddressId = 1; // TODO: Implementar selector de direcciones
+
+    setIsProcessing(true);
+    
+    try {
+      const payload = {
+        shipping_address_id: shippingAddressId,
+        items: getOrderItemsPayload(),
+        total_price: getTotal()
+      };
+
+      await createOrder(payload);
+      clearCart();
+      alert('Order created successfully!');
+      navigate('/profile/my-orders');
+    } catch (error) {
+      alert('Error creating order: ' + error.message);
+    } finally {
+      setIsProcessing(false);
+    }
   };
-
-  await api.post('/orders', payload);
-  clearCart();
-};
-
 
   if (cart.length === 0) {
     return (
@@ -39,7 +70,6 @@ const CartPage = () => {
 
   return (
     <div className="container my-5">
-      
       <div className="row">
         <div className="col-lg-8">
           {cart.map(item => (
@@ -49,7 +79,7 @@ const CartPage = () => {
                   <div className="col-md-3">
                     <img 
                       src={item.img_url} 
-                      alt={item.name} 
+                      alt={item.title} 
                       className="img-fluid rounded"
                       style={{ maxHeight: '150px', objectFit: 'cover' }}
                     />
@@ -58,7 +88,7 @@ const CartPage = () => {
                   <div className="col-md-4">
                     <h5 className="card-title mb-1">{item.title}</h5>
                     <p className="text-muted mb-0">
-                      {item.user?.name && `By ${item.user.name}`}
+                      {item.artist?.name && `By ${item.artist.name}`}
                     </p>
                     <p className="fw-bold mt-2 mb-0">
                       ${Number(item.price).toFixed(2)}
@@ -131,11 +161,15 @@ const CartPage = () => {
                 </strong>
               </div>
 
-              <button className="btn btn-primary w-100 mb-2">
-                Proceed to Checkout
+              <button 
+                className="btn btn-primary w-100 mb-2"
+                onClick={handleCreateOrder}
+                disabled={isProcessing}
+              >
+                {isProcessing ? 'Processing...' : 'Proceed to Checkout'}
               </button>
 
-              <Link to="/" className="btn btn-outline-secondary w-100">
+              <Link to="/prints" className="btn btn-outline-secondary w-100">
                 Continue Shopping
               </Link>
             </div>
