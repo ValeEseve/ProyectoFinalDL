@@ -9,7 +9,8 @@ export const getAllArtists = async (req, res) => {
     artists.slug,
     artists.bio,
     artists.profile_img_url,
-    users.username
+    users.username,
+    users.name
   FROM artists
   JOIN users ON artists.user_id = users.id
 `);
