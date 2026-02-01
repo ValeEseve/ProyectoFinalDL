@@ -1,7 +1,103 @@
-.newpost-form{
-    margin-left: 8rem;
+.new-post-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
-.input-dimensions input{
-    width: 5rem;
+.new-post-container .card {
+  border: none;
+  border-radius: 12px;
+}
+
+.new-post-container .card-header {
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1.5rem;
+}
+
+.new-post-container .card-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.new-post-container .form-label {
+  color: #2c3e50;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.new-post-container .form-control,
+.new-post-container .input-group {
+  border-radius: 8px;
+}
+
+.new-post-container .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+.new-post-container textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.new-post-container .input-group-text {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.new-post-container .img-thumbnail {
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.new-post-container .alert {
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.new-post-container .btn {
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.new-post-container .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.new-post-container .btn-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+  border: none;
+}
+
+.new-post-container .btn-primary:hover {
+  background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .new-post-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .new-post-container .card-body {
+    padding: 1.5rem !important;
+  }
 }

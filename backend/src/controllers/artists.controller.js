@@ -50,7 +50,7 @@ export const getArtistBySlug = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Error" });
   }
-};
+}
 
 export const getPrintsBySlug = async (req, res) => {
   const {slug} = req.params;
@@ -126,3 +126,60 @@ export const createArtist = async (req, res) => {
     client.release();
   }
 };
+export const updateArtistProfile = async (req, res) => {
+  try {
+    const userId = req.user.id; 
+    const { bio, img_url } = req.body;
+
+    if (bio && bio.trim().length < 10) {
+      return res.status(400).json({ 
+        message: 'Bio must be at least 10 characters' 
+      });
+    }
+
+    const updates = [];
+    const values = [];
+    let paramCount = 1;
+
+    if (bio !== undefined) {
+      updates.push(`bio = $${paramCount}`);
+      values.push(bio);
+      paramCount++;
+    }
+
+    if (img_url !== undefined) {
+      updates.push(`img_url = $${paramCount}`);
+      values.push(img_url);
+      paramCount++;
+    }
+
+    if (updates.length === 0) {
+      return res.status(400).json({ 
+        message: 'No fields to update' 
+      });
+    }
+
+    values.push(userId);
+
+    const { rows } = await pool.query(
+      `
+      UPDATE artists
+      SET ${updates.join(', ')}
+      WHERE user_id = $${paramCount}
+      RETURNING id, user_id, bio, img_url, slug
+      `,
+      values
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ 
+        message: 'Artist profile not found. You need to become an artist first.' 
+      });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error('Error updating artist profile:', error);
+    res.status(500).json({ message: 'Error updating artist profile' });
+  }
+}
