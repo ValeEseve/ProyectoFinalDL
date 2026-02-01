@@ -48,7 +48,7 @@ const CartPage = () => {
                 <div className="row align-items-center">
                   <div className="col-md-3">
                     <img 
-                      src={item.img} 
+                      src={item.img_url} 
                       alt={item.name} 
                       className="img-fluid rounded"
                       style={{ maxHeight: '150px', objectFit: 'cover' }}
@@ -56,7 +56,7 @@ const CartPage = () => {
                   </div>
 
                   <div className="col-md-4">
-                    <h5 className="card-title mb-1">{item.name}</h5>
+                    <h5 className="card-title mb-1">{item.title}</h5>
                     <p className="text-muted mb-0">
                       {item.user?.name && `By ${item.user.name}`}
                     </p>

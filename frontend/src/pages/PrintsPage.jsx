@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 import { PrintContext } from '../context/PrintContext'
-import { UserContext } from '../context/UserContext'
 import CardPrint from '../components/CardPrint'
 import { ArtistContext } from '../context/ArtistContext'
+import Masonry from 'react-masonry-css'
 
 const PrintsPage = () => {
   const { prints } = useContext(PrintContext)
@@ -11,23 +11,45 @@ const PrintsPage = () => {
 
   useEffect(() => {
     if (!prints.length || !artists.length) return;
+    
     setPrintsWithArtist(
       prints.map(print => {
-        const foundUser = artists.find(u => String(u.id) === String(print.userId));
+        const foundArtist = artists.find(a => a.id === print.artist_id);
         return {
           ...print,
-          artist: foundUser
+          artist: foundArtist
         }
       })
     );
   }, [prints, artists]);
+
+  const breakpointColumns = {
+    default: 5,
+    1100: 3,
+    700: 2,
+    500: 1
+  };
+
   return (
     <main>
-      <section className='d-flex justify-content-center flex-wrap gap-5'>
-        {printsWithArtist.map((print) => (
-          <CardPrint key={print.id} print={print} artist={print.artist} />
-        ))}
-      </section>
+      <h1 className='text-center my-4'>All Prints</h1>
+      {printsWithArtist.length > 0 ? (
+        <Masonry
+          breakpointCols={breakpointColumns}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {printsWithArtist.map((print) => (
+            <CardPrint 
+              key={print.id} 
+              print={print} 
+              artist={print.artist} 
+            />
+          ))}
+        </Masonry>
+      ) : (
+        <p className='text-center'>No prints available yet.</p>
+      )}
     </main>
   )
 }

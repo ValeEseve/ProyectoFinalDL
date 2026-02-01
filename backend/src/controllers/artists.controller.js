@@ -72,7 +72,7 @@ export const getPrintsBySlug = async (req, res) => {
       return res.status(404).json({ message: "Prints not found" });
     }
 
-    res.status(200).json(rows[0]);
+    res.status(200).json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error" });

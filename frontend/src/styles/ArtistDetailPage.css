@@ -1,7 +1,22 @@
 .user-details{
-    width: 15rem;
+    flex: 1;
 }
 
 .user-prints{
-    width: 45rem;
+    flex: 2;
+}
+
+.my-masonry-grid {
+  display: flex;
+  margin-left: -1rem; 
+  width: auto;
+}
+
+.my-masonry-grid_column {
+  padding-left: 1rem; 
+  background-clip: padding-box;
+}
+
+.my-masonry-grid_column > article {
+  margin-bottom: 1rem;
 }

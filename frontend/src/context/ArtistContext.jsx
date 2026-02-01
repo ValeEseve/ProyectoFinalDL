@@ -5,13 +5,14 @@ export const ArtistContext = createContext({})
 const ArtistProvider = ({ children }) => {
     const [artists, setArtists] = useState([])
     const [selectedArtist, setSelectedArtist] = useState(null)
+    const [artistPrints, setArtistPrints] = useState([])
     const [loading, setLoading] = useState(true)
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const fetchArtists = async () => {
         setLoading(true)
-        const url =  `${apiUrl}/artists`
+        const url = `${apiUrl}/artists`
         try {
             const response = await fetch(url)
             const data = await response.json()
@@ -23,9 +24,9 @@ const ArtistProvider = ({ children }) => {
         }
     }
 
-    const fetchArtistBySlug = async (slug) => { 
+    const fetchArtistBySlug = async (slug) => {
         setLoading(true)
-        const url =  `${apiUrl}/artists/${slug}`
+        const url = `${apiUrl}/artists/${slug}`
         try {
             const response = await fetch(url)
             const data = await response.json()
@@ -35,9 +36,23 @@ const ArtistProvider = ({ children }) => {
         } finally {
             setLoading(false)
         }
-     }
+    }
 
-     
+    const fetchPrintsBySlug = async (slug) => {
+        setLoading(true)
+        const url = `${apiUrl}/artists/${slug}/prints`
+        try {
+            const response = await fetch(url)
+            const data = await response.json()
+            setArtistPrints(data)
+        } catch (error) {
+            console.error("Error fetching prints by slug: ", error)
+            setArtistPrints([])
+        } finally {
+            setLoading(false)
+        }
+    }
+
 
     useEffect(() => {
         fetchArtists()
@@ -45,8 +60,9 @@ const ArtistProvider = ({ children }) => {
 
     return (
         <ArtistContext.Provider value={
-            {   fetchArtistBySlug,
-                artists, selectedArtist, loading
+            {
+                fetchArtistBySlug, fetchPrintsBySlug,
+                artists, selectedArtist, artistPrints, loading
             }
         }>
             {children}
