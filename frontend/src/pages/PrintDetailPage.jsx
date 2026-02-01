@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext'
 import "../styles/PrintDetailPage.css"
 import { ArtistContext } from '../context/ArtistContext'
 
-const PrintDetail = () => {
+const PrintDetailPage = () => {
   const { id } = useParams()
   const { artists } = useContext(ArtistContext)
   const { prints } = useContext(PrintContext)
@@ -14,14 +14,14 @@ const PrintDetail = () => {
   const handleAddToCart = () => {
     addToCart(print);
   };
-  const print = prints.find((p) => p.id == id)
-  console.log("Print en PrintDetail: ", print)
-  const printArtist = artists.find((a) => a.id === print.artist_id)
-  console.log("PrintArtist en Print Detail: ",printArtist)
+  const print = prints.find(p => String(p.id) === id)
 
-  if (!print || !artists.length || !prints.length) {
-    return <p>Loading print...</p>;
+  if (!print || !prints.length || !artists.length) {
+    return <p>Loading print...</p>
   }
+
+  const printArtist = artists.find(a => a.id === print.artist_id)
+
 
   return (
     <main>
@@ -30,7 +30,7 @@ const PrintDetail = () => {
           <img src={print.img_url} alt={print.title} className='print-img' />
         </div>
         <div className='ms-3 p-4'>
-          <h1>{print.title} <span className='text-muted text-black-50'>by {print.name}</span></h1>
+          <h1>{print.title} <span className='text-muted text-black-50'>by {printArtist?.name}</span></h1>
           <p>{print.description}</p>
           <h5 className='text-end'>Dimensions: {print.width}x{print.height} cms</h5>
           <div className='d-flex justify-content-between align-items-center'>
@@ -48,4 +48,4 @@ const PrintDetail = () => {
   )
 }
 
-export default PrintDetail
+export default PrintDetailPage

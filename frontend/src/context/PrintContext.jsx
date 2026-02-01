@@ -19,7 +19,12 @@ const PrintsProvider = ({ children }) => {
             console.log("No prints available")
             return
         }
-        setPrints([...posts]);
+        const normalizedPrints = data.map(p => ({
+            ...p,
+            id: p.id ?? p.print_id
+        }))
+        setPrints(normalizedPrints)
+
     };
 
     const addPrint = async (title, descr, width, height, imgUrl, price) => {

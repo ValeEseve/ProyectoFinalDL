@@ -1,4 +1,3 @@
-import placeholderimage from "../assets/img/dummy_1500x400_ffffff_cccccc.png"
 import hero1 from "../assets/img/hero1.jpg"
 import hero2 from "../assets/img/hero2.jpeg"
 import hero3 from "../assets/img/hero3.jpeg"
