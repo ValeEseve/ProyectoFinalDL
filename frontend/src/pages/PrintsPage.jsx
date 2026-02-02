@@ -10,17 +10,26 @@ const PrintsPage = () => {
   const [printsWithArtist, setPrintsWithArtist] = useState([])
 
   useEffect(() => {
-    if (!prints.length || !artists.length) return;
+    console.log("📄 PrintsPage - prints:", prints.length);
+    console.log("📄 PrintsPage - artists:", artists.length);
     
-    setPrintsWithArtist(
-      prints.map(print => {
-        const foundArtist = artists.find(a => a.id === print.artist_id);
-        return {
-          ...print,
-          artist: foundArtist
-        }
-      })
-    );
+    if (!prints.length || !artists.length) {
+      console.log("⚠️ PrintsPage - Waiting for data...");
+      return;
+    }
+
+    const enrichedPrints = prints.map(print => {
+      const foundArtist = artists.find(a => a.id === print.artist_id);
+      console.log(`Print ${print.id} (${print.title}) - Artist ID: ${print.artist_id}, Found:`, foundArtist?.name);
+      
+      return {
+        ...print,
+        artist: foundArtist
+      }
+    });
+
+    console.log("✅ PrintsPage - printsWithArtist:", enrichedPrints.length);
+    setPrintsWithArtist(enrichedPrints);
   }, [prints, artists]);
 
   const breakpointColumns = {
@@ -31,7 +40,7 @@ const PrintsPage = () => {
   };
 
   return (
-    <main>
+    <main className="mt-5">
       <h1 className='text-center my-4'>All Prints</h1>
       {printsWithArtist.length > 0 ? (
         <Masonry
@@ -39,16 +48,19 @@ const PrintsPage = () => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {printsWithArtist.map((print) => (
-            <CardPrint 
-              key={print.id} 
-              print={print} 
-              artist={print.artist} 
-            />
-          ))}
+          {printsWithArtist.map((print) => {
+            console.log("Rendering CardPrint - ID:", print.id, "Title:", print.title);
+            return (
+              <CardPrint 
+                key={print.id} 
+                print={print} 
+                artist={print.artist} 
+              />
+            );
+          })}
         </Masonry>
       ) : (
-        <p className='text-center'>No prints available yet.</p>
+        <p className='text-center'>Loading prints...</p>
       )}
     </main>
   )

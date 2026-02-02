@@ -10,22 +10,28 @@ const ArtistDetailPage = () => {
   const { fetchArtistBySlug, fetchPrintsBySlug, selectedArtist, artistPrints, loading } = useContext(ArtistContext)
 
   useEffect(() => {
+    console.log("🎨 ArtistDetailPage - slug:", slug);
     if (slug) {
       fetchArtistBySlug(slug)
       fetchPrintsBySlug(slug)
     }
   }, [slug])
 
+  useEffect(() => {
+    console.log("🎨 ArtistDetailPage - selectedArtist:", selectedArtist);
+    console.log("🎨 ArtistDetailPage - artistPrints:", artistPrints);
+  }, [selectedArtist, artistPrints])
+
   if (loading || !selectedArtist) {
     return <p>Loading artist...</p>;
   }
-  console.log("Descripcion artista: ", selectedArtist.description)
 
-   const breakpointColumns = {
+  const breakpointColumns = {
     default: 4,
     1100: 3,
     700: 2,
-    500: 1}
+    500: 1
+  }
 
   return (
     <main>
@@ -41,15 +47,25 @@ const ArtistDetailPage = () => {
         <section className='user-prints'>
           <p>{selectedArtist.bio}</p>
           <h4 className='text-center mb-3'>Prints by the artist</h4>
-            {artistPrints.length > 0 ? (
+          {artistPrints.length > 0 ? (
             <Masonry
               breakpointCols={breakpointColumns}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
             >
-              {artistPrints.map((print) => (
-                <CardPrint key={print.id} print={print} artist={selectedArtist} />
-              ))}
+              {artistPrints.map((print) => {
+                console.log("🖼️ Rendering print in ArtistDetail - ID:", print.id, "Title:", print.title);
+                console.log("Print object:", print);
+                
+                // 🔥 AQUÍ ESTÁ EL PROBLEMA: Pasamos selectedArtist como prop artist
+                return (
+                  <CardPrint 
+                    key={print.id} 
+                    print={print} 
+                    artist={selectedArtist} 
+                  />
+                );
+              })}
             </Masonry>
           ) : (
             <p>No prints available yet.</p>

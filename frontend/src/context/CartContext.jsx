@@ -1,36 +1,65 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  // FIX: Inicializar desde localStorage
+  const [cart, setCart] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem('printsy_cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error('Error loading cart from localStorage:', error);
+      return [];
+    }
+  });
+
+  // FIX: Guardar en localStorage cada vez que cambie el cart
+  useEffect(() => {
+    try {
+      localStorage.setItem('printsy_cart', JSON.stringify(cart));
+    } catch (error) {
+      console.error('Error saving cart to localStorage:', error);
+    }
+  }, [cart]);
 
   const addToCart = (print) => {
+    console.log('addToCart called with print:', print);
+    
     setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === print.id);
+      // Verificar que el print tenga un ID válido
+      if (!print.id) {
+        console.error('Print without ID:', print);
+        return prevCart;
+      }
 
+      const existingItem = prevCart.find(item => item.id === print.id);
+      
       if (existingItem) {
+        console.log('Print already in cart, increasing quantity');
         return prevCart.map(item =>
           item.id === print.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       } else {
+        console.log('Adding new print to cart');
         return [...prevCart, { ...print, quantity: 1 }];
       }
     });
   };
 
   const removeFromCart = (id) => {
+    console.log('Removing from cart, ID:', id);
     setCart(prevCart => prevCart.filter(item => item.id !== id));
   };
 
   const updateQuantity = (id, quantity) => {
+    console.log('Updating quantity, ID:', id, 'Quantity:', quantity);
     if (quantity <= 0) {
       removeFromCart(id);
       return;
     }
-
     setCart(prevCart =>
       prevCart.map(item =>
         item.id === id ? { ...item, quantity } : item
@@ -39,6 +68,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const increaseQuantity = (id) => {
+    console.log('Increasing quantity, ID:', id);
     setCart(prevCart =>
       prevCart.map(item =>
         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
@@ -47,13 +77,12 @@ export const CartProvider = ({ children }) => {
   };
 
   const decreaseQuantity = (id) => {
+    console.log('Decreasing quantity, ID:', id);
     setCart(prevCart => {
       const item = prevCart.find(item => item.id === id);
-
       if (item && item.quantity === 1) {
         return prevCart.filter(item => item.id !== id);
       }
-
       return prevCart.map(item =>
         item.id === id ? { ...item, quantity: item.quantity - 1 } : item
       );
@@ -61,7 +90,9 @@ export const CartProvider = ({ children }) => {
   };
 
   const clearCart = () => {
+    console.log('Clearing cart');
     setCart([]);
+    localStorage.removeItem('printsy_cart');
   };
 
   const getTotal = () => {
@@ -76,7 +107,9 @@ export const CartProvider = ({ children }) => {
   };
 
   const isInCart = (id) => {
-    return cart.some(item => item.id === id);
+    const result = cart.some(item => Number(item.id) === Number(id));
+    console.log(`isInCart check - ID: ${id}, Result: ${result}, Cart:`, cart.map(i => i.id));
+    return result;
   };
 
   const getItemQuantity = (id) => {
@@ -90,7 +123,6 @@ export const CartProvider = ({ children }) => {
       quantity: item.quantity
     }));
   };
-
 
   return (
     <CartContext.Provider

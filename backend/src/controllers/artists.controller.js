@@ -4,16 +4,16 @@ import { createUniqueSlug } from "../utils/slug.utils.js";
 export const getAllArtists = async (req, res) => {
   try {
     const { rows } = await pool.query(`
-  SELECT
-  artists.id,
-  artists.slug,
-  artists.bio,
-  users.username,
-  users.name,
-  users.profile_img_url
-  FROM artists
-  JOIN users ON artists.user_id = users.id;
-`);
+      SELECT
+        artists.id,
+        artists.slug,
+        artists.bio,
+        users.username,
+        users.name,
+        users.profile_img_url
+      FROM artists
+      JOIN users ON artists.user_id = users.id;
+    `);
 
     res.status(200).json(rows);
   } catch (error) {
@@ -59,14 +59,14 @@ export const getPrintsBySlug = async (req, res) => {
     const { rows } = await pool.query(
       `
         SELECT
-        prints.*,
-        artists.slug,
-        users.username AS artist_username
+          prints.*,
+          artists.slug,
+          users.username AS artist_username
         FROM prints
         JOIN artists ON prints.artist_id = artists.id
         JOIN users ON artists.user_id = users.id
         WHERE artists.slug = $1
-        `,
+      `,
       [slug],
     );
     if (!rows.length) {
@@ -90,7 +90,7 @@ export const createArtist = async (req, res) => {
       [userId],
     );
 
-    if (!userRows[0]) {
+    if (userRows.length === 0) {
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -111,9 +111,9 @@ export const createArtist = async (req, res) => {
     ]);
 
     await client.query(
-      `INSERT INTO artists (user_id, slug, bio, profile_img_url, name)
-       VALUES ($1, $2, 'Write an amazing bio, do not be shy.', $3, $4)`,
-      [userId, slug, profile_img_url, name],
+      `INSERT INTO artists (user_id, slug, bio)
+       VALUES ($1, $2, $3)`,
+      [userId, slug, 'Write an amazing bio, do not be shy.'],
     );
 
     await client.query("COMMIT");
@@ -126,15 +126,19 @@ export const createArtist = async (req, res) => {
   } catch (error) {
     await client.query("ROLLBACK");
     console.error("Create artist error:", error);
-    res.status(500).json({ message: "Error creating artist account" });
+    res.status(500).json({ 
+      message: "Error creating artist account",
+      error: error.message // FIX: Agregar mensaje de error para debugging
+    });
   } finally {
     client.release();
   }
 };
+
 export const updateArtistProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { bio} = req.body;
+    const { bio } = req.body;
 
     if (bio && bio.trim().length < 10) {
       return res.status(400).json({
